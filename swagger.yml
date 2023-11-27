@@ -1,0 +1,52 @@
+openapi: 3.0.0
+info:
+  title: "ELT Project API"
+  description: "API documentation about ELT Project specific requirements"
+  version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+components:
+  schemas:
+    Person:
+      type: "object"
+      required:
+        - lname
+      properties:
+        fname:
+          type: "string"
+        lname:
+          type: "string"
+  parameters:
+    lname:
+      name: "lname"
+      description: "Last name of the person to get"
+      in: path
+      required: True
+      schema:
+        type: "string"
+
+paths:
+  /getallproducts:
+    get:
+      operationID: "getproducts.readData"
+      tags:
+        - "Products"
+      summary: "Read all products"
+      responses:
+        "200":
+          description: "Success"
+        "400":
+          description: "Something went wrong"
+  /people:
+    get:
+      operationId: "people.read_all"
+      tags:
+        - "People"
+      summary: "Read the list of people"
+      responses:
+        "200":
+          description: "Successfully read people list"
+
+
