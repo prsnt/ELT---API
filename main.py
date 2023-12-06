@@ -8,8 +8,8 @@ from fastapi import FastAPI, Query
 db_connection = mysql.connector.connect(
     host='localhost',
     user='prashant',
-    password='Prsnt@151993',
-    database='ELT_db'
+    password='pwd@123',
+    database='elt_db'
 )
 
 # Create a cursor object
@@ -22,6 +22,7 @@ app = FastAPI()
 class CategoryModel(BaseModel):
     cat_id: Union[int, None]
     cat_name: Union[str, None]
+    cat_image: Union[str, None]
 
 
 class TopicModel(BaseModel):
@@ -121,6 +122,7 @@ class BaseFilterResponse(BaseModel):
     error: Optional[ErrorModel]
     category: List[CategoryModel]
     topics: List[TopicModel]
+    countries: List[CountryModel]
     developers: List[DeveloperModel]
     typeElts: List[TypeELTModel]
     languages: List[LanguageModel]
@@ -180,6 +182,10 @@ async def getFilters():
     cursor.execute(queryELTtypes)
     result_ELT = cursor.fetchall()
 
+    queryCountries = "SELECT * from country_tbl"
+    cursor.execute(queryCountries)
+    result_Country = cursor.fetchall()
+
     queryDeveloper = "SELECT * from developer_tbl"
     cursor.execute(queryDeveloper)
     result_Developer = cursor.fetchall()
@@ -192,11 +198,13 @@ async def getFilters():
     topics = []
     typeElts = []
     developers = []
+    countries = []
     languages = []
 
     if queryCategory:
-        for (cat_id, cat_name, cat_name_fold) in result_Category:
-            categories.append(CategoryModel(cat_id=cat_id, cat_name=cat_name))
+        for (cat_id, cat_name, cat_name_fold, cat_image) in result_Category:
+            print(cat_image)
+            categories.append(CategoryModel(cat_id=cat_id, cat_image=cat_image, cat_name=cat_name))
 
     if queryTopics:
         for (topic_id, topic_area, topic_area_fold) in result_Topic:
@@ -205,6 +213,10 @@ async def getFilters():
     if queryELTtypes:
         for (elt_id, elt_name, elt_name_fold) in result_ELT:
             typeElts.append(TypeELTModel(elt_type_id=elt_id, elt_type_name=elt_name))
+
+    if queryCountries:
+        for (country_id, country_name, country_name_casefold) in result_Country:
+            countries.append(CountryModel(country_id=country_id, country_name=country_name))
 
     if queryDeveloper:
         for (developer_id, developer_name, developer_name_fold) in result_Developer:
@@ -221,7 +233,8 @@ async def getFilters():
     #     print("No Records Found!")
 
     responseModel = BaseFilterResponse(success=1, message=f"Records Fetched", error=None,
-                                       category=categories, topics=topics, developers=developers, typeElts=typeElts,
+                                       category=categories, topics=topics, countries=countries, developers=developers,
+                                       typeElts=typeElts,
                                        languages=languages)
 
     return responseModel
