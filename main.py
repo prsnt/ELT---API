@@ -8,7 +8,7 @@ from fastapi import FastAPI, Query
 db_connection = mysql.connector.connect(
     host='localhost',
     user='prashant',
-    password='pwd@123',
+    password='Prsnt@151993',
     database='elt_db'
 )
 
@@ -447,7 +447,7 @@ async def getProducts(page_number: int = Query(default=1, description="Page numb
             else:
                 var = len(products) - 1
                 if CategoryModel(cat_id=cat_id, cat_name=cat_name, cat_image=cat_image) not in categories:
-                    categories.append(CategoryModel(cat_id=cat_id, cat_name=cat_name))
+                    categories.append(CategoryModel(cat_id=cat_id, cat_name=cat_name, cat_image=cat_image))
                 if TopicModel(topic_id=topic_id, topic_area=topic_name) not in topics:
                     topics.append(TopicModel(topic_id=topic_id, topic_area=topic_name))
                 if DeveloperModel(developer_id=developer_id, developer_name=developer_name) not in developers:
