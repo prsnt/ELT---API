@@ -8,7 +8,7 @@ from fastapi import FastAPI, Query
 db_connection = mysql.connector.connect(
     host='localhost',
     user='prashant',
-    password='Prsnt@151993',
+    password='pwd@123',
     database='elt_db'
 )
 
