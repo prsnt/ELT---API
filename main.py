@@ -22,7 +22,7 @@ app = FastAPI()
 class CategoryModel(BaseModel):
     cat_id: Union[int, None]
     cat_name: Union[str, None]
-    cat_image: Union[str, None]
+    cat_image: Optional[str, None]
 
 
 class TopicModel(BaseModel):
