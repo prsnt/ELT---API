@@ -6,7 +6,7 @@ from fastapi import FastAPI, Query
 
 # Connect to your MySQL database
 db_connection = mysql.connector.connect(
-        host='localhost',
+    host='localhost',
     user='prashant',
     password='pwd@123',
     database='elt_db'
@@ -331,7 +331,7 @@ async def getProducts(page_number: int = Query(default=1, description="Page numb
     category_filter += ') AS t1 '
 
     query = (
-        "SELECT DISTINCT t1.product_id,t1.Name_of_OSH_related_ELT,t1.Website,t1.Description_of_technology,t1.Free_Paid,t1.Date_of_Release_and_Version_Number,t1.Certification_accreditation_for_completion,t1.Duration_min,t3.cat_id,t3.cat_name,tat.topic_id,"
+        "SELECT DISTINCT t1.product_id,t1.Name_of_OSH_related_ELT,t1.Website,t1.Description_of_technology,t1.Free_Paid,t1.Date_of_Release_and_Version_Number,t1.Certification_accreditation_for_completion,t1.Duration_min,t3.cat_id,t3.cat_name,t3.cat_image,tat.topic_id,"
         "tat.topic_area,dev.developer_id,dev.developer_name,et.elt_type_id,et.elt_type_name,ct.country_id,"
         "ct.country_name,lt.language_id,lt.language_name,ot.occupation_id,ot.occupation_name,tt.task_id,"
         "tt.task_name,ott.osh_topic_id,ott.osh_topic_name,ht.hardware_id,ht.hardware_name"
@@ -405,7 +405,8 @@ async def getProducts(page_number: int = Query(default=1, description="Page numb
 
     if results:
         for (product_id, name, website, description, payment_type, Date_of_Release_and_Version_Number,
-             Certification_accreditation_for_completion, Duration_min, cat_id, cat_name, topic_id, topic_name,
+             Certification_accreditation_for_completion, Duration_min, cat_id, cat_name, cat_image, topic_id,
+             topic_name,
              developer_id, developer_name, type_id, type_name, country_id, country_name,
              language_id, language_name, occupation_id, occupation_name,
              task_id, task_name, oshtopic_id, oshtopic_name,
@@ -423,7 +424,7 @@ async def getProducts(page_number: int = Query(default=1, description="Page numb
                 hardwares.clear()
                 productIds.clear()
                 productIds.append(product_id)
-                categories.append(CategoryModel(cat_id=cat_id, cat_name=cat_name))
+                categories.append(CategoryModel(cat_id=cat_id, cat_name=cat_name, cat_image=cat_image))
                 topics.append(TopicModel(topic_id=topic_id, topic_area=topic_name))
                 developers.append(DeveloperModel(developer_id=developer_id, developer_name=developer_name))
                 types.append(TypeELTModel(elt_type_id=type_id, elt_type_name=type_name))
@@ -445,7 +446,7 @@ async def getProducts(page_number: int = Query(default=1, description="Page numb
                                  hardware=hardwares))
             else:
                 var = len(products) - 1
-                if CategoryModel(cat_id=cat_id, cat_name=cat_name) not in categories:
+                if CategoryModel(cat_id=cat_id, cat_name=cat_name, cat_image=cat_image) not in categories:
                     categories.append(CategoryModel(cat_id=cat_id, cat_name=cat_name))
                 if TopicModel(topic_id=topic_id, topic_area=topic_name) not in topics:
                     topics.append(TopicModel(topic_id=topic_id, topic_area=topic_name))
