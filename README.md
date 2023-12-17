@@ -1,14 +1,10 @@
 # REST API with FASTAPI
 
 ## **Table of Contents**
-Introduction
-Features
-Installation
-Usage
-API Documentation
-Contributing
-License
-Features
+1. [Introduction](#introduction)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [API Documentation](#api-documentation)
 
 ## **FastAPI Implementation:**
 Highlight the advantages of using FastAPI in your project.
