@@ -1,6 +1,6 @@
 # REST API with FASTAPI
 
-**Table of Contents**
+# **Table of Contents**
 Introduction
 Features
 Installation
