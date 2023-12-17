@@ -1,6 +1,6 @@
 # REST API with FASTAPI
 
-# **Table of Contents**
+## **Table of Contents**
 Introduction
 Features
 Installation
@@ -10,19 +10,8 @@ Contributing
 License
 Features
 
-# **FastAPI Implementation:**
+## **FastAPI Implementation:**
 Highlight the advantages of using FastAPI in your project.
-
-# **Endpoints:**
-Certainly! Below is a README template focused on documenting the provided endpoints and their response details:
-
----
-
-# Project Title - FastAPI REST API
-
-## Introduction
-
-This project involves developing a FastAPI-based RESTful API to manage and retrieve information about various products related to occupational safety and health (OSH). The API connects to a MySQL database (`elt_db`) to fetch and deliver relevant data.
 
 ## Endpoints
 
@@ -73,24 +62,129 @@ This project involves developing a FastAPI-based RESTful API to manage and retri
 - **Description**: Returns a dummy response containing product details.
 - **Response**: A list of product details including various attributes such as `product_id`, `Name_of_OSH_related_ELT`, `Website`, `Free_Paid`, `Description_of_technology`, `Duration_min`, and additional information categorized by `Category`, `Key_Topic_Area`, `Developers_Distributor`, `Type_of_ELT`, `Country_Head_Quarters`, `Language`, `Skilled_Trade_Occupation`, `Tasks_Topics`, `OSH_Topics`, and `Hardware_Options_for_ELT`.
 
-# **Installation**
-Provide step-by-step instructions on how to install and set up the API locally.
-Include details about dependencies, virtual environments, and any specific configurations required.
+## **Installation**
 
-# **Usage**
-Explain how to run the API locally.
-Include information on environment variables, configuration settings, and running tests if applicable.
+### Pre-requisites:
 
-# **API Documentation**
-Provide a link or instructions on how to access the API documentation.
-Include details on how users can interact with the API, request/response formats, authentication methods, etc.
+- **Python**: Ensure you have Python 3.7 or higher installed. You can download it from the [Python official website](https://www.python.org/downloads/).
+- **MySQL**: Install MySQL database server on your machine. You can download it from the [MySQL official website](https://dev.mysql.com/downloads/installer/).
 
-# **Contributing**
-Guidelines for contributing to the API project.
-Instructions for submitting bug reports, suggesting enhancements, or making pull requests.
+### Setting up the environment:
 
-# **License**
-Specify the project's license and provide a link to the full license file.
+1. **Create a Virtual Environment (optional but recommended)**:
+    - Open your terminal or command prompt.
+    - Navigate to the directory where you want to create your project.
+    - Run the following command to create a virtual environment:
+      ```
+      python -m venv myenv
+      ```
+      Replace `myenv` with the name you prefer for your virtual environment.
 
-# **Authors**
-L  ist the contributors or authors involved in developing the API.
+2. **Activate the Virtual Environment**:
+    - Activate the virtual environment:
+      - On Windows:
+        ```
+        myenv\Scripts\activate
+        ```
+      - On macOS and Linux:
+        ```
+        source myenv/bin/activate
+        ```
+
+3. **Install Required Python Packages**:
+    - Once the virtual environment is activated, install the required packages using pip:
+      ```
+      pip install fastapi uvicorn mysql-connector-python[mysql]
+      ```
+
+4. **Database Configuration**:
+    - Ensure your MySQL server is up and running.
+    - Update the database connection details in your code (`host`, `user`, `password`, `database`) to match your MySQL database settings.
+
+5. **Run the FastAPI application**:
+    - Run the FastAPI application using Uvicorn, which is included in the installed packages. Use the following command from the directory where your FastAPI code is located:
+      ```
+      uvicorn your_script_name:app --reload
+      ```
+      Replace `your_script_name` with the name of your Python script file.
+
+6. **Access the API**:
+    - Once the FastAPI application is running, access it in your browser or using API development tools like Postman or cURL by navigating to `http://localhost:8000/`.
+
+These steps will set up the environment and run your FastAPI application. Adjust the paths and filenames as per your project structure and filenames.
+## **Usage**
+
+### Available Endpoints:
+
+1. **Root Endpoint**:
+   - Access the root endpoint at `http://localhost:8000/` (or the appropriate host and port where your FastAPI application is running) to get a simple "Hello World" message.
+
+2. **Get Filters**:
+   - Endpoint: `http://localhost:8000/getFilters`
+   - This endpoint retrieves filter options like categories, topics, countries, developers, etc., from the database.
+
+3. **Get Products**:
+   - Endpoint: `http://localhost:8000/getProducts`
+   - Parameters: You can pass query parameters like `page_number`, `page_size`, `cat_id`, `product_id`, `topic_id`, etc., to filter and paginate the products.
+   - This endpoint fetches products based on the provided filters and pagination options.
+
+4. **Search Topic and Name**:
+   - Endpoint: `http://localhost:8000/search_topic_and_name`
+   - Parameters: Pass a `search_text` query parameter to search for topics and product names matching the provided text.
+
+### Usage Examples:
+
+- To access these endpoints, you can use tools like:
+  - **Web Browser**: Simply enter the appropriate URL in your browser's address bar to access the endpoints and view responses.
+  - **API Testing Tools**: Tools like Postman, cURL, or HTTPie can be used to send HTTP requests with specific parameters and headers to these endpoints.
+
+- Examples:
+
+  - **Get Filters**:
+    ```
+    GET http://localhost:8000/getFilters
+    ```
+    This will return the available filter options.
+
+  - **Get Products**:
+    ```
+    GET http://localhost:8000/getProducts?page_number=1&page_size=10&cat_id=1&payment_type=Free
+    ```
+    Replace the query parameters with the desired values to filter and paginate products.
+
+  - **Search Topic and Name**:
+    ```
+    GET http://localhost:8000/search_topic_and_name?search_text=fall
+    ```
+    Replace `search_text` with the text you want to search for in topics and product names.
+
+You can test these endpoints using appropriate HTTP methods (GET in this case) and provide necessary parameters to retrieve specific data or perform actions based on the defined functionality for each endpoint. Adjust the parameters as needed to match your use case.
+
+## **API Documentation**
+
+To generate API documentation for your FastAPI project, you can use the built-in feature called "Automatic Interactive API documentation" powered by Swagger UI and ReDoc. FastAPI automatically generates an interactive API documentation based on your code.
+
+Here's how you can access the API documentation:
+
+1. **Run Your FastAPI Application:**
+   Ensure that your FastAPI application is running. Normally, it runs on `http://localhost:8000` by default.
+
+2. **Access Swagger UI Documentation:**
+   Open your web browser and navigate to `http://localhost:8000/docs`. This URL will display an interactive documentation using Swagger UI, which presents your API endpoints, request/response models, and allows you to test your API by sending requests directly from the documentation.
+
+3. **Access ReDoc Documentation:**
+   Additionally, you can access ReDoc documentation by navigating to `http://localhost:8000/redoc`. ReDoc provides a more polished and structured documentation layout for your API endpoints.
+
+### Using Swagger UI:
+
+- **Explore Endpoints:** Swagger UI provides a user-friendly interface to explore all available endpoints.
+- **Test Endpoints:** You can test the endpoints directly from the documentation by entering parameters and sending requests.
+- **View Models:** Request and response models are displayed, helping you understand the data structures expected and returned by each endpoint.
+
+### Using ReDoc:
+
+- **Structured Documentation:** ReDoc provides a more structured and visually appealing layout for API documentation.
+- **Endpoints Overview:** Lists all endpoints with detailed information, including request methods and expected parameters.
+- **Model Schemas:** Clearly displays request and response models for each endpoint.
+
+Both Swagger UI and ReDoc offer great ways to interact with and understand your API. They automatically generate documentation based on your code's OpenAPI specifications, making it easier for developers to comprehend and use your API effectively.
