@@ -1,7 +1,8 @@
 # REST API with FASTAPI
 
 ## **Swagger API documentation**
-[FastAPI - Swagger UI.pdf](https://github.com/prsnt/ELT---API/files/13846931/FastAPI.-.Swagger.UI.pdf)
+[FastAPI - Swagger UI.pdf](https://github.com/prsnt/ELT---API/files/13846982/FastAPI.-.Swagger.UI.pdf)
+
 
 
 ## **Table of Contents**
